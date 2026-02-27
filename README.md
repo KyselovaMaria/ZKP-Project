@@ -127,9 +127,9 @@ age = 0, threshold = 18
 delta = 0 - 18 ≡ p - 18 (mod p)
 ```
 
-The value p − 18 is a large positive number in the field. A naive comparison would incorrectly conclude that age ≥ threshold.
+The value p - 18 is a large positive number in the field. A naive comparison would incorrectly conclude that age ≥ threshold.
 
-The solution is to apply `Num2Bits(n)` to the delta signal. This component decomposes a number into its binary representation and only succeeds if the value fits in n bits - which means it must be in the range [0, 2^n − 1]. If delta is negative (i.e., age < threshold), it becomes a huge field element that cannot be represented in 7 bits, so the constraint system has no valid solution and proof generation fails.
+The solution is to apply `Num2Bits(n)` to the delta signal. This component decomposes a number into its binary representation and only succeeds if the value fits in n bits - which means it must be in the range [0, 2^n - 1]. If delta is negative (i.e., age < threshold), it becomes a huge field element that cannot be represented in 7 bits, so the constraint system has no valid solution, and proof generation fails.
 
 ### Constraint structure
 
@@ -170,7 +170,7 @@ The verifier checks a single equation involving bilinear pairings on the BN128 e
 e(A, B) = e(α, β) · e( Σ wᵢ · ICᵢ , γ ) · e(C, δ)
 ```
 
-where A, B, C come from the proof, α, β, γ, δ and IC come from the verification key, and wᵢ are the public inputs (in our case, threshold = 18). The function e(·, ·) is the optimal Ate pairing.
+where A, B, C come from the proof, α, β, γ, δ, and IC come from the verification key, and wᵢ are the public inputs (in our case, threshold = 18). The function e(·, ·) is the optimal Ate pairing.
 
 This check runs in constant time - three pairing operations - regardless of the size of the circuit. The server does not need any private data to perform it.
 
@@ -186,9 +186,9 @@ Groth16 security rests on three assumptions:
 
 **Bilinear Diffie-Hellman Problem (BDHP):** Given (g^a, g^b, g^c), it is infeasible to compute e(g, g)^(abc). This underlies the zero-knowledge property.
 
-**Generic Group Model (GGM):** The security proof for Groth16 is carried out in the Generic Group Model, which treats group operations as ideal. In practice this is an assumption, not a theorem - real-world groups may have structure that GGM does not capture.
+**Generic Group Model (GGM):** The security proof for Groth16 is carried out in the Generic Group Model, which treats group operations as ideal. In practice, this is an assumption, not a theorem - real-world groups may have a structure that GGM does not capture.
 
-BN128 currently offers approximately 128-bit security and is used in production systems including Ethereum (EIP-197) and Zcash.
+BN128 currently offers approximately 128-bit security and is used in production systems, including Ethereum (EIP-197) and Zcash.
 
 ### Limitations
 
@@ -214,7 +214,7 @@ Public trusted setups suitable for production use are available from the Hermez 
 The prover knows an integer `age` such that `age ∈ [0, 127]` and `age ≥ 18`.
 
 **What the verifier learns:**  
-Only that the above statement is true. The exact value of age, the delta (age − 18), and the date of birth remain unknown.
+Only if the above statement is true, the exact value of age, the delta (age - 18), and the date of birth remain unknown.
 
 **Attack vectors outside ZK:**
 
