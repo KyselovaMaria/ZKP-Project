@@ -1,0 +1,15 @@
+{
+  "name": "zk-age-proof-circuit",
+  "version": "1.0.0",
+  "description": "Circom circuit and trusted setup for ZK age verification",
+  "scripts": {
+    "setup": "bash setup.sh"
+  },
+  "dependencies": {
+    "circomlib": "^2.0.5",
+    "snarkjs": "^0.7.6"
+  },
+  "devDependencies": {
+    "circom2": "^0.2.18"
+  }
+}
