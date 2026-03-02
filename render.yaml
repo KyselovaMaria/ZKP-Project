@@ -1,0 +1,34 @@
+services:
+  # ── Backend: FastAPI + snarkjs verifier ──────────────────────────────────────
+  - type: web
+    name: zkp-backend
+    runtime: python
+    rootDir: backend
+    # Node.js is pre-installed on Render; snarkjs must be in node_modules so
+    # the subprocess `require("snarkjs")` resolves from the backend cwd.
+    buildCommand: pip install -r requirements.txt && npm install snarkjs
+    startCommand: uvicorn main:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.0
+    autoDeploy: true
+
+  # ── Frontend: React / Vite static site ───────────────────────────────────────
+  - type: web
+    name: zkp-frontend
+    runtime: static
+    rootDir: frontend
+    buildCommand: npm install && npm run build
+    staticPublishPath: dist
+    # SharedArrayBuffer (used by snarkjs WASM in-browser) requires these headers
+    headers:
+      - path: /*
+        name: Cross-Origin-Opener-Policy
+        value: same-origin
+      - path: /*
+        name: Cross-Origin-Embedder-Policy
+        value: require-corp
+    envVars:
+      - key: VITE_BACKEND_URL
+        value: https://zkp-backend.onrender.com
+    autoDeploy: true
