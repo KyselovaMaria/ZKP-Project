@@ -37,21 +37,26 @@ else:
     print(f"Verification key loaded from {VK_PATH}")
 
 
-JS_VERIFY = """
-const snarkjs = require("snarkjs");
+JS_VERIFY = r"""
+const path = require("path");
 const fs = require("fs");
+const { createRequire } = require("module");
+
+// Force module resolution from the backend folder (cwd)
+const requireFromCwd = createRequire(path.join(process.cwd(), "package.json"));
+const snarkjs = requireFromCwd("snarkjs");
 
 const data = JSON.parse(fs.readFileSync(process.argv[2], "utf8"));
 
 snarkjs.groth16.verify(data.vk, data.publicSignals, data.proof)
-    .then(valid => {
-        console.log(JSON.stringify({ valid }));
-        process.exit(0);
-    })
-    .catch(e => {
-        console.log(JSON.stringify({ valid: false, error: e.message }));
-        process.exit(0);
-    });
+  .then(valid => {
+    console.log(JSON.stringify({ valid }));
+    process.exit(0);
+  })
+  .catch(e => {
+    console.log(JSON.stringify({ valid: false, error: e && e.message ? e.message : String(e) }));
+    process.exit(0);
+  });
 """
 
 
