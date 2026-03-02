@@ -2,6 +2,7 @@ services:
   # ── Backend: FastAPI + snarkjs verifier ──────────────────────────────────────
   - type: web
     name: zkp-backend
+    plan: free
     runtime: python
     rootDir: backend
     # Node.js is pre-installed on Render; snarkjs must be in node_modules so
