@@ -5,7 +5,7 @@ const THRESHOLD = 18;
 
 function delay(ms) { return new Promise(r => setTimeout(r, ms)); }
 
-// ── Compute age from birthdate ───────────────────────────────────────────────
+// Compute age from birthdate
 function computeAge(birthDateStr) {
   const birth = new Date(birthDateStr);
   const today = new Date();
@@ -15,7 +15,7 @@ function computeAge(birthDateStr) {
   return age;
 }
 
-// ── Step indicator ───────────────────────────────────────────────────────────
+// Step indicator 
 function Step({ n, label, active, done, error }) {
   return (
     <div className={`step ${active?"active":""} ${done?"done":""} ${error?"error":""}`}>
@@ -27,7 +27,7 @@ function Step({ n, label, active, done, error }) {
   );
 }
 
-// ── Animated proof field ─────────────────────────────────────────────────────
+// Animated proof field 
 function ProofField({ label, value, delay: d = 0 }) {
   const [vis, setVis] = useState(false);
   useEffect(() => { const t = setTimeout(() => setVis(true), d); return () => clearTimeout(t); }, [d]);
@@ -40,7 +40,7 @@ function ProofField({ label, value, delay: d = 0 }) {
   );
 }
 
-// ── Verification check row ───────────────────────────────────────────────────
+// Verification check row
 function CheckRow({ label, ok, delay: d = 0 }) {
   const [vis, setVis] = useState(false);
   useEffect(() => { const t = setTimeout(() => setVis(true), d); return () => clearTimeout(t); }, [d]);
@@ -52,7 +52,7 @@ function CheckRow({ label, ok, delay: d = 0 }) {
   );
 }
 
-// ── Particle canvas ──────────────────────────────────────────────────────────
+// Particle canvas 
 function Particles() {
   const ref = useRef(null);
   useEffect(() => {
@@ -83,9 +83,9 @@ function Particles() {
   return <canvas ref={ref} style={{position:"fixed",inset:0,pointerEvents:"none",zIndex:0}} />;
 }
 
-// ════════════════════════════════════════════════════════════════════════════
+
 // MAIN APP
-// ════════════════════════════════════════════════════════════════════════════
+
 export default function App() {
   const [phase, setPhase]       = useState("idle"); // idle|loading_wasm|proving|verifying|result
   const [birthDate, setBirthDate] = useState("");
@@ -112,7 +112,7 @@ export default function App() {
     setError(null); setProofData(null); setResult(null); setLog([]);
     const age = computeAge(birthDate);
 
-    // ── Phase 1: Load snarkjs + WASM ────────────────────────────────────────
+    // Phase 1: Load snarkjs + WASM 
     setPhase("loading_wasm");
     addLog("$ Initializing snarkjs (Groth16 / BN128)…");
     await delay(300);
@@ -132,7 +132,7 @@ export default function App() {
       return;
     }
 
-    // ── Phase 2: Generate proof in browser ──────────────────────────────────
+    // Phase 2: Generate proof in browser 
     setPhase("proving");
     addLog(`$ Private witness: age = ${age} (stays in browser)`);
     addLog(`$ Public input: threshold = ${THRESHOLD}`);
@@ -173,7 +173,7 @@ export default function App() {
     addLog(`$ Private witness: age — NOT included in proof`, "dim");
     await delay(400);
 
-    // ── Phase 3: Send to server for verification ─────────────────────────────
+    // Phase 3: Send to server for verification 
     setPhase("verifying");
     addLog("$ ─────────────────────────────────────────");
     addLog("$ Sending proof to verifier (server)…");
