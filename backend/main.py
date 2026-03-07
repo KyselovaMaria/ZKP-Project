@@ -1,5 +1,5 @@
 """
-ZK Age Proof — Backend Verifier
+ZK Age Proof - Backend Verifier
 ================================
 The server ONLY verifies a Groth16 proof.
 It never sees the user's age or birthdate.

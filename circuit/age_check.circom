@@ -16,11 +16,11 @@ pragma circom 2.0.0;
  *
  * Без range check можлива атака:
  *   age = 0, threshold = 18
- *   delta = 0 - 18 = p - 18 (mod p) — величезне позитивне число у полі
- *   GreaterEqThan побачить p-18 >> 0 і поверне true — хибно!
+ *   delta = 0 - 18 = p - 18 (mod p) - величезне позитивне число у полі
+ *   GreaterEqThan побачить p-18 >> 0 і поверне true - хибно!
  *
  * Захист: застосовуємо Num2Bits(7) до delta.
- * Якщо delta від'ємне, то delta mod p ≈ 2^254 — не вміщується у 7 біт,
+ * Якщо delta від'ємне, то delta mod p ≈ 2^254 - не вміщується у 7 біт,
  * witness не існує, генерація proof падає з помилкою.
  */
 
@@ -47,7 +47,7 @@ template AgeCheck() {
     // Крок 4: головний range proof
     // Доводимо що delta належить [0, 127], тобто age - threshold >= 0,
     // що рівнозначно age >= threshold.
-    // Якщо age < threshold — Num2Bits(7) не зможе розкласти delta → помилка.
+    // Якщо age < threshold - Num2Bits(7) не зможе розкласти delta → помилка.
     component deltaRange = Num2Bits(7);
     deltaRange.in <== delta;
 
