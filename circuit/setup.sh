@@ -1,5 +1,5 @@
 #!/bin/bash
-# Trusted setup script — run once to compile the circuit and generate keys.
+# Trusted setup script - run once to compile the circuit and generate keys.
 # Do not run this again unless you want to regenerate everything from scratch.
 set -e
 
