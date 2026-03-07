@@ -6,6 +6,12 @@ The implementation uses **Groth16 zk-SNARKs** (Circom + snarkjs). The proof is g
 
 ---
 
+## Demo
+
+Link: https://zkp-frontend.onrender.com/
+
+---
+
 ## Motivation
 
 Traditional age verification requires sending personal data (date of birth, ID scans) to a server. This creates centralized repositories of sensitive information that become targets for data breaches.
