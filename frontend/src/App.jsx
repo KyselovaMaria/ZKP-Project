@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 
-const API = "http://localhost:8000";
+const API = import.meta.env.VITE_BACKEND_URL || "http://localhost:8000";
 const THRESHOLD = 18;
 
 function delay(ms) { return new Promise(r => setTimeout(r, ms)); }
