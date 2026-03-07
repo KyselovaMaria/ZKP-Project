@@ -125,7 +125,7 @@ export default function App() {
     try {
       // snarkjs is loaded via CDN script tag in index.html
       snarkjs = window.snarkjs;
-      if (!snarkjs) throw new Error("snarkjs not loaded — check index.html CDN script");
+      if (!snarkjs) throw new Error("snarkjs not loaded - check index.html CDN script");
     } catch (e) {
       setError(`Failed to load snarkjs: ${e.message}`);
       setPhase("idle");
@@ -155,7 +155,7 @@ export default function App() {
       // If age < 18, snarkjs will throw because no valid witness exists
       if (age < THRESHOLD) {
         addLog(`$ ✗ No valid witness exists for age=${age} < ${THRESHOLD}`, "red");
-        addLog("$ Proof generation FAILED — circuit constraint violated", "red");
+        addLog("$ Proof generation FAILED - circuit constraint violated", "red");
         setResult({ verified: false, under18: true });
         setPhase("result");
         return;
@@ -170,12 +170,12 @@ export default function App() {
     addLog(`$ ✓ Proof generated in ${proofMs}ms`, "green");
     addLog(`$ Proof size: ~256 bytes (3 BN128 curve points)`, "");
     addLog(`$ Public signal: threshold = ${publicSignals[0]}`);
-    addLog(`$ Private witness: age — NOT included in proof`, "dim");
+    addLog(`$ Private witness: age - NOT included in proof`, "dim");
     await delay(400);
 
     // Phase 3: Send to server for verification 
     setPhase("verifying");
-    addLog("$ ─────────────────────────────────────────");
+    addLog("$ --------------------─");
     addLog("$ Sending proof to verifier (server)…");
     addLog(`$ Payload: { proof: {...}, publicSignals: ["${THRESHOLD}"] }`);
     await delay(400);
@@ -198,8 +198,8 @@ export default function App() {
 
     addLog(
       verifyResult.verified
-        ? "$ ✓ Pairing check PASSED — proof is valid!"
-        : "$ ✗ Pairing check FAILED — proof is invalid",
+        ? "$ ✓ Pairing check PASSED - proof is valid!"
+        : "$ ✗ Pairing check FAILED - proof is invalid",
       verifyResult.verified ? "green" : "red"
     );
 
@@ -219,7 +219,7 @@ export default function App() {
       <Particles />
       <div className="layout">
 
-        {/* ── HEADER ── */}
+        {/* - HEADER - */}
         <header>
           <div className="badges">
             <span className="badge">GROTH16</span>
@@ -229,11 +229,11 @@ export default function App() {
           <h1>Zero-Knowledge<br/><em>Age Verification</em></h1>
           <p className="subtitle">
             Proof generated <strong>entirely in your browser</strong> using snarkjs + WASM.<br/>
-            The server receives a 256-byte proof — never your age or birthdate.
+            The server receives a 256-byte proof - never your age or birthdate.
           </p>
         </header>
 
-        {/* ── STEPS ── */}
+        {/* - STEPS - */}
         <div className="steps">
           <Step n={1} label="Enter birthday" done={phase!=="idle"} active={phase==="idle"} />
           <div className="step-line"/>
@@ -247,7 +247,7 @@ export default function App() {
 
         <div className="grid">
 
-          {/* ── LEFT: PROVER ── */}
+          {/* - LEFT: PROVER - */}
           <div className="panel">
             <div className="panel-hd">
               <span>🔐</span><h2>Prover</h2>
@@ -324,11 +324,11 @@ export default function App() {
             </div>
           </div>
 
-          {/* ── CENTER: TERMINAL + RESULT ── */}
+          {/* - CENTER: TERMINAL + RESULT - */}
           <div className="panel terminal-panel">
             <div className="term-hd">
               <span className="dot red"/><span className="dot yellow"/><span className="dot green"/>
-              <span className="term-title">snarkjs — groth16 prover</span>
+              <span className="term-title">snarkjs - groth16 prover</span>
             </div>
             <div className="terminal" ref={termRef}>
               {log.length === 0 && <div className="tl dim">$ Waiting for input…</div>}
@@ -349,7 +349,7 @@ export default function App() {
                   {result.verified
                     ? "age ≥ 18 confirmed via Groth16 pairing check"
                     : result.under18
-                      ? "No valid witness for age < 18 — circuit constraint violated"
+                      ? "No valid witness for age < 18 - circuit constraint violated"
                       : "The pairing check failed"}
                 </div>
                 <div className="result-checks">
@@ -367,7 +367,7 @@ export default function App() {
             )}
           </div>
 
-          {/* ── RIGHT: VERIFIER ── */}
+          {/* - RIGHT: VERIFIER - */}
           <div className="panel">
             <div className="panel-hd">
               <span>🔍</span><h2>Verifier</h2>
@@ -417,11 +417,11 @@ export default function App() {
                   &nbsp;&nbsp;· e(C, δ)
                 </div>
                 <div className="math-legend">
-                  <div><code>A, B, C</code> — proof points (from browser)</div>
-                  <div><code>α, β, γ, δ</code> — from verification key</div>
-                  <div><code>w<sub>i</sub></code> — public inputs (threshold=18)</div>
-                  <div><code>IC<sub>i</sub></code> — input commitments in vk</div>
-                  <div><code>e(·,·)</code> — Ate pairing on BN128</div>
+                  <div><code>A, B, C</code> - proof points (from browser)</div>
+                  <div><code>α, β, γ, δ</code> - from verification key</div>
+                  <div><code>w<sub>i</sub></code> - public inputs (threshold=18)</div>
+                  <div><code>IC<sub>i</sub></code> - input commitments in vk</div>
+                  <div><code>e(·,·)</code> - Ate pairing on BN128</div>
                 </div>
                 <div className="math-note">
                   The constraint <code>age ≥ 18</code> is enforced by the R1CS
@@ -435,7 +435,7 @@ export default function App() {
         </div>
 
         <footer>
-          <p>Master's Thesis — Zero-Knowledge Proofs in Digital Identity</p>
+          <p>Master's Thesis - Zero-Knowledge Proofs in Digital Identity</p>
           <p className="footer-sub">
             Circom 2.0 · snarkjs · Groth16 · BN128 · Trusted Setup (Powers of Tau)
           </p>
